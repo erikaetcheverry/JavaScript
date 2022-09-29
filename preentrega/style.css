@@ -1,0 +1,97 @@
+body {
+    background-color: black;
+    height: 50vh;
+    width: 100vw;
+}
+
+.texto {
+    color: green;
+    font-size: 20px;
+    font-family: monospace;
+}
+
+input {
+    width: 10vw;
+    margin: 20px 20px;
+    font-family: monospace;
+    color: white;
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    height: 30px;
+}
+
+#inicio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+#inicio label {
+    display: block;
+    font-family: monospace;
+    white-space: nowrap;
+    border-right: 4px solid;
+    width: 87ch; /* el numero de caracteres que tiene la linea */
+    animation: typing 5s steps(87), 
+    blink .5s infinite step-end alternate;
+    overflow: hidden;
+    font-size: 20px;
+    color: green;
+}
+
+
+@keyframes typing {
+    from { width:0 }
+}
+
+@keyframes blink {
+    50% {border-color: transparent;}
+}
+
+.inputs {
+    height: 30px;
+    border-radius: 0px;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.301);
+    border-left: 3px solid green;
+    font-family: monospace;
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 2vh 3vw;
+    background-color: black;
+    border: solid 2px green;
+    font-family: monospace;
+    color: white;
+}
+
+.btn:hover {
+    text-decoration: none;
+    background-color: green;
+}
+
+.boxAcertijo{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 80px 80px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.boxAcertijo #primerAcertijo {
+    font-family: monospace;
+    color: green;
+    font-size: 20px;
+    
+}
+
