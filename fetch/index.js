@@ -102,7 +102,7 @@ function segundoAcertijo() {
         let textoAcertijoDos 
         let btnLuz
 
-        segundoAcertijo.innerHTML = " <p id='textoAcertijoDos' class='texto'></p> <input type='text' id='luz' class='inputs'/> <button type='button' id='validacionDos' class='btn'><a href='#resolucionDos'>Enviar</a></button><p id='resolucionDos' class='texto'></p>"
+        segundoAcertijo.innerHTML = " <p id='textoAcertijoDos' class='texto'></p> <input type='text' id='luz' class='inputs'/> <button type='button' id='validacionDos' class='btn'><a href='#resolucionDos'>Enviar</a></button><p id='resolucionDos' class='texto'></p><div id='mapa'></div>"
 
         textoAcertijoDos = document.getElementById("textoAcertijoDos")
         textoAcertijoDos.innerHTML = consignaDos
@@ -120,7 +120,8 @@ function segundoAcertijo() {
         let resolucionDos = document.getElementById("resolucionDos")
         
         if (respuestaUsuario.toUpperCase()==="LUZ") {
-        resolucionDos.innerHTML = "Excelente. Si quieres salvarte, deberás demostrar tu valentía ¿Estás preparado? Continuará"
+        resolucionDos.innerHTML = "Excelente. Necesito que busques a ver si encuentras alguna noticia sobre la coordenada que te voy a mandar"
+        mostrarMapa()
         }
         else {
             resolucionDos.innerHTML = "vuelve a intentarlo"
@@ -130,4 +131,27 @@ function segundoAcertijo() {
     function objetosEnJson() {
         let acertijosJSON = JSON.stringify([new Acertijo (consignaUno, resolucionUno), new Acertijo (consignaDos, resolucionDos)])
         localStorage.setItem("acertijos", acertijosJSON)
+    }
+
+    
+    let mapa = document.getElementById("mapa") 
+
+    function buscarMapa() {
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'SIGN-UP-FOR-KEY',
+                'X-RapidAPI-Host': 'google-maps-geocoding.p.rapidapi.com'
+            }
+        };
+        
+        fetch('https://google-maps-geocoding.p.rapidapi.com/geocode/json?latlng=37.24804%2C-115.800155&language=en', options)
+            .then(response => response.json())
+            .then(data => mostrarMapa(data))
+            .catch(err => console.error(err));
+    }
+
+    function mostrarMapa(data) {
+       
     }
