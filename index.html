@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="audio">
+      <audio
+        src="multimedia/sonidoFondo.mp3"
+        type="audio/mpeg"
+        autoplay="autoplay"
+        controls
+      ></audio>
+    </div>
+    <header id="header">
+      <img src="multimedia/c.png" alt="c:/" />
+      <p>Símbolo del sistema</p>
+    </header>
+    <p class="texto">C:\Users</p>
+    <div id="inicio">
+      <label for="inputNombre" class="texto"
+        >Hola! queremos darte la bienvenida a esta nueva aventura. Por favor,
+        escribe tu nombre
+      </label>
+      <input type="text" id="inputNombre" class="inputs" />
+      <button type="submit" id="btnContinuar" class="btn">
+        <a href="#valueInput">Continuar</a>
+      </button>
+    </div>
+    <div class="boxAcertijo">
+      <p id="valueInput" class="texto"></p>
+
+      <p id="primerAcertijo"></p>
+
+      <div id="inputsTresPalabras"></div>
+    </div>
+    <div class="boxAcertijo">
+      <div id="segundoAcertijo"></div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
