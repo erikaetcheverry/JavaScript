@@ -7,11 +7,11 @@ class Acertijo {
 ////// variables globales
 let textoUno = document.getElementById("valueInput")
 
-let consignaUno = "Necesito que decifres las tres palabras que se encuentran dentro de este texto que empiecen con la letra E. 'Hola, vivimos en el exterior, no podemos contar mucho pero tenemos un escrito que debemos descifrar. Por aqui hace mucho calor, y ayer vimos las primeras estrellas'" 
+let consignaUno = "Necesito que decifres las tres palabras que se encuentran dentro de este texto que empiecen con la letra E. 'Hola, vivimos al exterior, no podemos contar mucho pero tenemos un escrito que debemos descifrar. Por aqui hace mucho calor, y ayer vimos las primeras estrellas'" 
 let resolucionUno = ["exterior", "escrito", "estrellas"]
 const acertijoUno = new Acertijo (consignaUno, resolucionUno)
-let consignaDos = "Exterior, escrito, estrellas... ¿Qué nos querrán decir? Ah! Todavía no te he contado... Se viene algo muy grande y debemos estar listos. ¡Espera! '7548L932U97268Z' esto dice al final. Ves algunas letras?"
-let resolucionDos = "LUZ"
+let consignaDos = "Exterior, escrito, estrellas... ¿Qué nos querrán decir? Ah! Todavía no te he contado... Se viene algo muy grande y debemos estar listos. ¡Espera! ¿Esta imagen podrá ayudarnos?"
+let resolucionDos = "area 51"
 const acertijoDos = new Acertijo (consignaDos, resolucionDos)
 
 ////// saludo . input nombre completo. boton de continuar que me lleve al primer acertijo.
@@ -28,12 +28,26 @@ btnContinuar.onclick = () => {
 function validacionNombre (inputNombre) {
 
     if (inputNombre=="" || inputNombre == null) {
-        textoUno.innerHTML = "Debes completar tu nombre para poder continuar"
+        //textoUno.innerHTML = "Debes completar tu nombre para poder continuar"
+        toastify()
     } 
     else {
-    textoUno.innerHTML = "Al fin " + inputNombre + " te hemos encontrado! te estabamos buscando. Espero que sepas a lo que nos encontramos. Mientras tanto no tenemos mucho tiempo, agarra papel y lapiz. ¡Vamos!"
+    textoUno.innerHTML = "Al fin " + inputNombre + " te hemos encontrado! te estabamos buscando. Espero que sepas a lo que nos encontramos. Mientras tanto no tenemos mucho tiempo. ¡Vamos!"
     primerAcertijo()
     }
+}
+
+function toastify (){
+    Toastify({
+        text: "Debemos conocer tu nombre",
+        close: true,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+          background: "green",
+        },
+             }).showToast();
 }
 
 function primerAcertijo(){
@@ -86,15 +100,15 @@ function primerAcertijo(){
 function segundoAcertijo() {
         let segundoAcertijo = document.getElementById("segundoAcertijo")
         let textoAcertijoDos 
-        let btnLuz
+        let btnArea
 
-        segundoAcertijo.innerHTML = " <p id='textoAcertijoDos' class='texto'></p> <input type='text' id='luz' class='inputs'/> <button type='button' id='validacionDos' class='btn'><a href='#resolucionDos'>Enviar</a></button><p id='resolucionDos' class='texto'></p>"
+        segundoAcertijo.innerHTML = " <p id='textoAcertijoDos' class='texto'></p><img src='multimedia/estrellas.jpg' class='imagen'> <input type='text' id='area51' class='inputs'/> <button type='button' id='validacionDos' class='btn'><a href='#resolucionDos'>Enviar</a></button><p id='resolucionDos' class='texto'></p><div id='mapa'></div>"
 
         textoAcertijoDos = document.getElementById("textoAcertijoDos")
         textoAcertijoDos.innerHTML = consignaDos
         
-        btnLuz = document.getElementById("validacionDos")
-        btnLuz.onclick = () => {
+        btnArea = document.getElementById("validacionDos")
+        btnArea.onclick = () => {
             validacionDos()
         }
 
@@ -102,18 +116,42 @@ function segundoAcertijo() {
     }
     
     function validacionDos (){
-        let respuestaUsuario = document.getElementById("luz").value
+        let respuestaUsuario = document.getElementById("area51").value
         let resolucionDos = document.getElementById("resolucionDos")
-        
-        if (respuestaUsuario.toUpperCase()==="LUZ") {
-        resolucionDos.innerHTML = "Excelente. Si quieres salvarte, deberás demostrar tu valentía ¿Estás preparado? Continuará"
+
+        if (respuestaUsuario.toLowerCase()==="area 51") {
+        resolucionDos.innerHTML = "Excelente. Si quieres salvarte, deberás demostrar tu valentía ¿Estás preparado? "
+        buscarMapa ()
         }
         else {
             resolucionDos.innerHTML = "vuelve a intentarlo"
         }
     }
 
-    function objetosEnJson() {
-        let acertijosJSON = JSON.stringify([new Acertijo (consignaUno, resolucionUno), new Acertijo (consignaDos, resolucionDos)])
+    function objetosEnJson() {  
+        let acertijosJSON = JSON.stringify([new Acertijo (consignaUno), new Acertijo (consignaDos)])
         localStorage.setItem("acertijos", acertijosJSON)
+    }
+
+    async function buscarMapa() {
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'AIzaSyAprZlVSDDyyWFaNJ96NkuMWK9pGgO0UJE',
+                'X-RapidAPI-Host': 'google-maps-geocoding.p.rapidapi.com',
+            },
+            mode:'cors'
+        };
+        
+        fetch('https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=AIzaSyAprZlVSDDyyWFaNJ96NkuMWK9pGgO0UJE', options)
+        .then((data) => mostrarMapa(data.url))
+        .catch((err) => console.error(err));
+
+    } 
+
+    async function mostrarMapa(data) {
+        let mapa = document.getElementById("mapa")
+       
+        mapa.innerHTML = "<img src='"+data+"'>";
     }

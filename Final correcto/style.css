@@ -100,6 +100,11 @@ a {
     
 }
 
+.boxAcertijo .imagen {
+    width: 30vw;
+    height: auto;
+}
+
 #audio {
 display: flex;
 justify-content: center;
@@ -121,9 +126,4 @@ margin: 10px;
     width: auto;
     height: 25px;
    
-}
-
-#mapa {
-    height: 500px;
-    width: 100%;
 }
