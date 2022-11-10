@@ -13,6 +13,10 @@ const acertijoUno = new Acertijo (consignaUno, resolucionUno)
 let consignaDos = "Exterior, escrito, estrellas... ¿Qué nos querrán decir? Ah! Todavía no te he contado... Se viene algo muy grande y debemos estar listos. ¡Espera! ¿Esta imagen podrá ayudarnos?"
 let resolucionDos = "area 51"
 const acertijoDos = new Acertijo (consignaDos, resolucionDos)
+let consignaTres = "Excelente. Si quieres salvarte, deberás demostrar tu valentía ¿Estás preparado? Las coordenadas son ______ "
+const acertijoTres = new Acertijo (consignaTres, "")
+
+
 
 ////// saludo . input nombre completo. boton de continuar que me lleve al primer acertijo.
 let btnContinuar = document.getElementById("btnContinuar")
@@ -86,7 +90,7 @@ function primerAcertijo(){
         let flag = false 
 
         for (let palabra of tresPalabras) {
-            if (resolucionUno.includes(palabra.value)) {
+            if (resolucionUno.includes(palabra.value.toLowerCase())) {
                 flag = true
             }
             else {
@@ -102,7 +106,7 @@ function segundoAcertijo() {
         let textoAcertijoDos 
         let btnArea
 
-        segundoAcertijo.innerHTML = " <p id='textoAcertijoDos' class='texto'></p><img src='multimedia/estrellas.jpg' class='imagen'> <input type='text' id='area51' class='inputs'/> <button type='button' id='validacionDos' class='btn'><a href='#resolucionDos'>Enviar</a></button><p id='resolucionDos' class='texto'></p><div id='mapa'></div>"
+        segundoAcertijo.innerHTML = " <p id='textoAcertijoDos' class='texto'></p><img src='multimedia/estrellas.jpg' class='imagen'> <input type='text' id='area51' class='inputs'/> <button type='button' id='validacionDos' class='btn'><a href='#resolucionDos'>Enviar</a></button><p id='resolucionDos' class='texto'></p>"
 
         textoAcertijoDos = document.getElementById("textoAcertijoDos")
         textoAcertijoDos.innerHTML = consignaDos
@@ -120,13 +124,40 @@ function segundoAcertijo() {
         let resolucionDos = document.getElementById("resolucionDos")
 
         if (respuestaUsuario.toLowerCase()==="area 51") {
-        resolucionDos.innerHTML = "Excelente. Si quieres salvarte, deberás demostrar tu valentía ¿Estás preparado? "
-        buscarMapa ()
+        resolucionDos.innerHTML = acertijoTres.consigna
+        tercerAcertijo ()
         }
         else {
             resolucionDos.innerHTML = "vuelve a intentarlo"
         }
     }
+
+    function tercerAcertijo () {
+    let tercerAcertijo = document.getElementById("tercerAcertijo")
+    
+    tercerAcertijo.innerHTML = "<form> <input type='radio' name='choice' value='37°16′35″N 115°45′20″O'> 37°16′35″N 115°45′20″O <input type='radio' name='choice' value='38°0'1.5'' S 57°33.372' O'> 38°0'1.5'' S 57°33.372' O <input type='radio' name='choice' value='40°27'49.2'' N 3°44.953' O'> 40°27'49.2'' N 3°44.953' O <input type='radio' name='choice' value='37°5'24.9'' N 95°42.773' O'> 37°5'24.9'' N 95°42.773' O </form> <button onclick='validacionTres()' class='btn'>Me siento con suerte</button><div id='mapa'></div>"
+}
+
+    function validacionTres(){
+
+            var radios = document.getElementsByName('choice');
+            var valor= "";
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                   valor = radios[i].value; 
+                   break;
+                 }
+            }
+            
+            if (valor == "" ) {
+              alert('please select choice answer');
+            } else if ( valor == "37°16′35″N 115°45′20″O" ) {
+              buscarMapa()
+            } else {
+              alert('Answer is wrong');
+            }
+          };
+
 
     function objetosEnJson() {  
         let acertijosJSON = JSON.stringify([new Acertijo (consignaUno), new Acertijo (consignaDos)])
@@ -136,15 +167,10 @@ function segundoAcertijo() {
     async function buscarMapa() {
 
         const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': 'AIzaSyAprZlVSDDyyWFaNJ96NkuMWK9pGgO0UJE',
-                'X-RapidAPI-Host': 'google-maps-geocoding.p.rapidapi.com',
-            },
-            mode:'cors'
+            method: 'GET'
         };
         
-        fetch('https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=AIzaSyAprZlVSDDyyWFaNJ96NkuMWK9pGgO0UJE', options)
+        fetch('https://maps.googleapis.com/maps/api/staticmap?center=37.1635,-115.4840&zoom=6&markers=37.1635,-115.4840&size=400x400&key=AIzaSyAFH5E3FCuIvWIT8C1mPns5NvecNBE_Wng', options)
         .then((data) => mostrarMapa(data.url))
         .catch((err) => console.error(err));
 
@@ -153,5 +179,5 @@ function segundoAcertijo() {
     async function mostrarMapa(data) {
         let mapa = document.getElementById("mapa")
        
-        mapa.innerHTML = "<img src='"+data+"'>";
+        mapa.innerHTML = "<p class='texto'>Acá te espero! Se termina mi tiempo de conexion. No sabes cuanto te agradezco la ayuda. Te veo pronto<p><img src='"+data+"'>";
     }

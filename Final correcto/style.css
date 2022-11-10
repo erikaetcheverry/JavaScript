@@ -87,7 +87,7 @@ a {
     width: 80%;
     display: flex;
     justify-content: center;
-    margin: 80px 80px;
+    margin: 5vh 5vw;
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -100,9 +100,29 @@ a {
     
 }
 
+.boxAcertijo #segundoAcertijo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .boxAcertijo .imagen {
     width: 30vw;
     height: auto;
+    margin: 4vh 4vw;
+}
+
+.boxAcertijo form {
+    color: white;
+    width: 100%;
+}
+
+form input {
+    width: 2vw;
+}
+
+.boxAcertijo #resolucionDos {
+    margin: 5vh 5vw;
 }
 
 #audio {
@@ -126,4 +146,13 @@ margin: 10px;
     width: auto;
     height: 25px;
    
+}
+
+#mapa img {
+    margin: 5vh 5vw;
+}
+
+#mapa p {
+    text-align: center;
+    margin: 3vh 3vw;
 }
